@@ -35,23 +35,22 @@
 ## 📸 Screenshots
 
 ### 🖥 Main Interface
-![Main UI](assets/mainui.png)
+![Main UI](assets/screenshots/mainui.png)
 
----
+
 
 ### 📂 Loading the QUEUE
-![Loading the Queue](assets/upload.png)
+![Loading the Queue](assets/screenshots/upload.png)
 
----
+
 
 ### 📑 Conversion in Progress
-![Conversion in Progress](assets/afterconv.png)
+![Conversion in Progress](assets/screenshots/afterconv.png)
 
----
----
+
 
 ### Finished TMerging
-![Finished Merginh](assets/status.png)
+![Finished Merginh](assets/screenshots/status.png)
 
 ---
 
