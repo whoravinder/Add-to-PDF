@@ -32,6 +32,29 @@
 
 ---
 
+## 📸 Screenshots
+
+### 🖥 Main Interface
+![Main UI](assets/mainui.png)
+
+---
+
+### 📂 Loading the QUEUE
+![Loading the Queue](assets/upload.png)
+
+---
+
+### 📑 Conversion in Progress
+![Conversion in Progress](assets/afterconv.png)
+
+---
+---
+
+### Finished TMerging
+![Finished Merginh](assets/status.png)
+
+---
+
 ## Requirements
 
 You’ll need:
