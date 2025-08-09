@@ -16,11 +16,9 @@
 - [Features](#-features)
 - [Requirements](#-requirements)
 - [Installation](#-installation)
-- [Usage](#-usage)
 - [Screenshots](#-screenshots)
-- [Conversion Backends](#-conversion-backends)
 - [License](#-license)
-- [Contributing](#-contributing)
+- [Contributing](#-Contributing)
 
 ---
 
