@@ -27,20 +27,17 @@ if os.name == "nt":
     except Exception:
         COM_AVAILABLE = False
 
-APP_NAME = "HardPdfMerger"
+APP_NAME = "Add to PDF"
 APP_AUTHOR = "Ravinder Singh"
-APP_TAGLINE = "Convert & merge Office files into a single PDF — fully offline"
+APP_TAGLINE = "Merger that helps to grow"
 SUPPORTED_EXTS = [".doc", ".docx", ".ppt", ".pptx", ".pdf"]
 
 
-# =========================
-# Conversion helpers
-# =========================
 def has_soffice() -> bool:
     return shutil.which("soffice") is not None
 
 def convert_via_soffice(src: str, out_pdf: str):
-    tmpdir = tempfile.mkdtemp(prefix="hardpdf_")
+    tmpdir = tempfile.mkdtemp(prefix="addtopdfld_")
     try:
         cmd = ["soffice", "--headless", "--norestore", "--convert-to", "pdf", "--outdir", tmpdir, src]
         result = subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -52,21 +49,21 @@ def convert_via_soffice(src: str, out_pdf: str):
         shutil.rmtree(tmpdir, ignore_errors=True)
 
 def convert_word_to_pdf_com(word_path: str, output_path: str):
-    word = comtypes.client.CreateObject('Word.Application')  # type: ignore
+    word = comtypes.client.CreateObject('Word.Application')  
     word.Visible = False
     try:
         doc = word.Documents.Open(word_path)
-        doc.SaveAs(output_path, FileFormat=17)  # wdFormatPDF
+        doc.SaveAs(output_path, FileFormat=17)  
         doc.Close()
     finally:
         word.Quit()
 
 def convert_ppt_to_pdf_com(ppt_path: str, output_path: str):
-    powerpoint = comtypes.client.CreateObject('Powerpoint.Application')  # type: ignore
+    powerpoint = comtypes.client.CreateObject('Powerpoint.Application')  
     powerpoint.Visible = False
     try:
         ppt = powerpoint.Presentations.Open(ppt_path, WithWindow=False)
-        ppt.SaveAs(output_path, FileFormat=32)  # ppSaveAsPDF
+        ppt.SaveAs(output_path, FileFormat=32)  
         ppt.Close()
     finally:
         powerpoint.Quit()
@@ -74,7 +71,7 @@ def convert_ppt_to_pdf_com(ppt_path: str, output_path: str):
 def convert_office_to_pdf(src: Path, out_pdf: Path):
     suffix = src.suffix.lower()
     if suffix in [".doc", ".docx", ".ppt", ".pptx"]:
-        # Prefer MS Office (if available), then fallback to LibreOffice
+        
         if COM_AVAILABLE and os.name == "nt":
             try:
                 if suffix in [".doc", ".docx"]:
@@ -135,16 +132,14 @@ def merge_pdfs(pdf_paths: List[str], output_path: str):
         merger.close()
 
 
-# =========================
-# UI
-# =========================
+
 class CleanApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title(APP_NAME)
         self.minsize(840, 560)
 
-        # state
+        
         self._processing = False
         self._worker: Optional[threading.Thread] = None
         self._q: "queue.Queue[Tuple]" = queue.Queue()
@@ -154,7 +149,6 @@ class CleanApp(tk.Tk):
         self._build_layout()
         self._set_status("Ready.")
 
-    # ---- Style / Theme ----
     def _init_style(self):
         self.style = ttk.Style(self)
         try:
@@ -175,23 +169,23 @@ class CleanApp(tk.Tk):
         self.style.configure("TEntry", padding=6)
         self.style.configure("TProgressbar", thickness=10)
 
-    # ---- Layout ----
+    
     def _build_layout(self):
         root = ttk.Frame(self, style="App.TFrame")
         root.pack(fill="both", expand=True)
 
-        # Header
+        
         header = ttk.Frame(root, style="App.TFrame")
         header.pack(fill="x", padx=20, pady=(16, 8))
         ttk.Label(header, text=APP_NAME, style="Title.TLabel").pack(anchor="w")
         ttk.Label(header, text=APP_TAGLINE, style="Sub.TLabel").pack(anchor="w")
 
-        # Card
+        
         card = ttk.Frame(root, style="Card.TFrame")
         card.pack(fill="both", expand=True, padx=20, pady=8)
         card.grid_columnconfigure(0, weight=1)
 
-        # Folder picker
+        
         pick_row = ttk.Frame(card, style="Card.TFrame")
         pick_row.grid(row=0, column=0, sticky="ew", padx=18, pady=(18, 8))
         ttk.Label(pick_row, text="Choose a folder:", style="CardTitle.TLabel").pack(anchor="w", pady=(0, 4))
@@ -205,7 +199,7 @@ class CleanApp(tk.Tk):
 
         ttk.Label(card, text=f"Supported: {', '.join(SUPPORTED_EXTS)}", style="Body.TLabel").grid(row=1, column=0, sticky="w", padx=18)
 
-        # File table
+        
         table_wrap = ttk.Frame(card, style="Card.TFrame")
         table_wrap.grid(row=2, column=0, sticky="nsew", padx=18, pady=(12, 8))
         card.grid_rowconfigure(2, weight=1)
@@ -248,7 +242,7 @@ class CleanApp(tk.Tk):
         footer.pack(fill="x", padx=20, pady=(0, 16))
         ttk.Label(footer, text=f"© 2025 {APP_AUTHOR} • AGPL-3.0-only", style="Sub.TLabel").pack(side="right")
 
-    # ---- Helpers ----
+    
     def _set_status(self, text: str):
         self.status_lbl.config(text=text)
 
