@@ -32,7 +32,7 @@
 
 ---
 
-## 📦 Requirements
+## Requirements
 
 You’ll need:
 - **Python 3.8+** installed and added to PATH
