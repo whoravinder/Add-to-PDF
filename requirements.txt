@@ -1,0 +1,3 @@
+PyPDF2>=3.0.0
+comtypes; platform_system == "Windows"
+tk==0.1.0
