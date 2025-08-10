@@ -49,7 +49,7 @@
 
 
 
-### Finished TMerging
+### Finished Merging
 ![Finished Merginh](assets/screenshots/status.png)
 
 ---
